@@ -66,6 +66,12 @@
         return this.list.findIndex(function(item) {
           return item.id == id;
         })
+      },
+      toggle_complete: function (id) {
+        var i = this.find_index(id);
+        Vue.set(this.list[i], 'completed', !this.list[i].complete);
+        this.list[i].complete = !this.list[i].complete;
+        // this.list[i].completed = !this.list[i].completed;
       }
     },
 
