@@ -37,6 +37,11 @@
         me.check_alerts();
       }, 1000);
 
+      Event.$on('toggle_detail', function (id) {
+        if (id) {
+          me.toggle_detail(id);
+        }
+      });
       Event.$on('remove', function (id) {
         if (id) {
           me.remove(id);
@@ -99,6 +104,12 @@
           this.list.push(todo);
         }
         this.reset_current();
+      },
+
+      toggle_detail: function (id) {
+        var index = this.find_index(id);
+        this.list[index].show_detail;
+        Vue.set(this.list[index], 'show_detail', !this.list[index].show_detail);
       },
 
       remove: function (id) {

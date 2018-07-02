@@ -21,11 +21,11 @@
   <form @submit.prevent="merge" id="task-form">
     <div class="wrap">
       <input v-model="current.title" id="task-input" type="text" autocomplete="off"></input>
-      <div class="detail">
+      <div v-if="current.id" class="detail">
         <textarea v-model="current.desc"></textarea>
         <input v-model="current.alert_at" type="datetime-local">
+        <button type="submit">submit</button>
       </div>
-      <button type="submit">submit</button>
     </div>
   </form>
   <div class="task-list">
@@ -59,8 +59,12 @@
   <div class="item">
     <button @click="action('toggle_complete', todo.id)">已完成</button>
     {{ todo.title }}
+    <button @click="action('toggle_detail', todo.id)">详情</button>
     <button @click="action('set_current', todo)">修改</button>
     <button @click="action('remove', todo.id)">删除</button>
+    <div v-if="todo.show_detail" class="detail">
+      {{ todo.desc || '暂无详情' }}
+    </div>
   </div>
 </template>
 
