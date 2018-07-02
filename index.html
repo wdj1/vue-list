@@ -18,9 +18,9 @@
   <div class="header">
     <p>开黑了么就写作业？</p>
   </div>
-  <form @submit.prevent="add" id="task-form">
+  <form @submit.prevent="merge" id="task-form">
     <div class="wrap">
-      <input v-model="current.title" id="task-input" type="text"></input>
+      <input v-model="current.title" id="task-input" type="text" autocomplete="off"></input>
       <button type="submit">submit</button>
     </div>
   </form>
@@ -29,6 +29,7 @@
       待办事项
       <div v-for="(todo, index) in list" class="item">
         {{ todo.title }}
+        <button @click="set_current(todo)">修改</button>
         <button @click="remove(index)">删除</button>
       </div>
     </div>
