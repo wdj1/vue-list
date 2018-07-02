@@ -16,19 +16,19 @@
     <h1>Vue.js 清单列表</h1>
   </div>
   <div class="header">
-    <p>要做就做最好的，不要明天再说真的可惜</p>
+    <p>开黑了么就写作业？</p>
   </div>
-  <div id="task-form">
+  <form @submit.prevent="add" id="task-form">
     <div class="wrap">
-      <input id="task-input" type="text"></input>
+      <input v-model="current.title" id="task-input" type="text"></input>
       <button type="submit">submit</button>
     </div>
-  </div>
+  </form>
   <div class="task-list">
     <div class="wrap">
       待办事项
-      <div class="item">
-        <p>待办list</p>
+      <div v-for="todo in list" class="item">
+        {{ todo.title }}
       </div>
     </div>
   </div>
@@ -45,5 +45,6 @@
 
 <script src="https://cdn.bootcss.com/vue/2.5.16/vue.js"></script>
 <script src="js/myStorage.js"></script>
+<script src="js/main.js"></script>
 </body>
 </html>

@@ -19,6 +19,6 @@
 })();
 
 
-ms.set('name',  '王花花');
-var name = ms.get('name');
-console.log('name:', name);
+// ms.set('name',  '王花花');
+// var name = ms.get('name');
+// console.log('name:', name);
