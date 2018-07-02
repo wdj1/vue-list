@@ -7,8 +7,41 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Vue.js清单列表</title>
   <link href="https://cdn.bootcss.com/normalize/8.0.0/normalize.min.css" rel="stylesheet">
+  <link href="./css/main.css" rel="stylesheet">
 </head>
 <body>
+
+<div id="main">
+  <div class="navbar">
+    <h1>Vue.js 清单列表</h1>
+  </div>
+  <div class="header">
+    <p>要做就做最好的，不要明天再说真的可惜</p>
+  </div>
+  <div id="task-form">
+    <div class="wrap">
+      <input id="task-input" type="text"></input>
+      <button type="submit">submit</button>
+    </div>
+  </div>
+  <div class="task-list">
+    <div class="wrap">
+      待办事项
+      <div class="item">
+        <p>待办list</p>
+      </div>
+    </div>
+  </div>
+  <div class="task-list">
+    <div class="wrap">
+      已完成事项
+      <div class="completed item">
+        <p>已完成list</p>
+      </div>
+    </div>
+  </div>
+
+</div>
 
 <script src="https://cdn.bootcss.com/vue/2.5.16/vue.js"></script>
 </body>
