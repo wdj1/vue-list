@@ -27,8 +27,9 @@
   <div class="task-list">
     <div class="wrap">
       待办事项
-      <div v-for="todo in list" class="item">
+      <div v-for="(todo, index) in list" class="item">
         {{ todo.title }}
+        <button @click="remove(index)">删除</button>
       </div>
     </div>
   </div>
