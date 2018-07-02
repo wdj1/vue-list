@@ -3,6 +3,8 @@
 
   var Event = new Vue();
 
+  var alert_sound = document.getElementById('alert-sound');
+
   function copy(obj) {
     return Object.assign({}, obj);
   }
@@ -29,6 +31,12 @@
       var me = this;
       this.list = ms.get('list') || this.list;
 
+      // 每隔1秒执行一次 check_alerts
+      setInterval(function () {
+        // 检查当前是否有要提醒的任务
+        me.check_alerts();
+      }, 1000);
+
       Event.$on('remove', function (id) {
         if (id) {
           me.remove(id);
@@ -45,25 +53,24 @@
         }
       });
 
-      // 每隔1秒执行一次 check_alerts
-      setInterval(function () {
-        this.check_alerts();
-      }, 1000);
     },
 
     methods: {
       check_alerts: function () {
-        
+        var me = this;
         this.list.forEach(function (row, i) {
           var alert_at = row.alert_at;
           if (!alert_at || row.alert_confirmed) return;
 
+          // 把 alert_at 变成Date对象
+          // getTime() 获取时间戳（从1970年1月1日至指定的时间一共过去了多少毫秒）
           var alert_at = (new Date(alert_at)).getTime();
           var now = (new Date()).getTime();
 
           if (now >= alert_at) {
+            alert_sound.play();
             var confirmed = confirm(row.title);
-            Vue.set(me.list[i], 'alert-confirmed', confirmed);
+            Vue.set(me.list[i], 'alert_confirmed', confirmed);
           }
         })
       },
