@@ -30,7 +30,7 @@
       <div v-for="(todo, index) in list" class="item">
         {{ todo.title }}
         <button @click="set_current(todo)">修改</button>
-        <button @click="remove(index)">删除</button>
+        <button @click="remove(todo.id)">删除</button>
       </div>
     </div>
   </div>
