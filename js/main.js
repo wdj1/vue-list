@@ -1,9 +1,21 @@
 ;(function() {
   'use strict';
 
+  var Event = new Vue();
+
   function copy(obj) {
     return Object.assign({}, obj);
   }
+
+  Vue.component('task', {
+    template: '#task-tpl',
+    props: ['todo'],
+    methods: {
+      action: function (name, params) {
+        Event.$emit(name, params);
+      }
+    }
+  })
 
   new Vue({
     el:'#main',
@@ -14,10 +26,47 @@
 
     // 挂载完成时，获取localStorage的值
     mounted: function () {
+      var me = this;
       this.list = ms.get('list') || this.list;
+
+      Event.$on('remove', function (id) {
+        if (id) {
+          me.remove(id);
+        }
+      });
+      Event.$on('toggle_complete', function (id) {
+        if (id) {
+          me.toggle_complete(id);
+        }
+      });
+      Event.$on('set_current', function (id) {
+        if (id) {
+          me.set_current(id);
+        }
+      });
+
+      // 每隔1秒执行一次 check_alerts
+      setInterval(function () {
+        this.check_alerts();
+      }, 1000);
     },
 
     methods: {
+      check_alerts: function () {
+        
+        this.list.forEach(function (row, i) {
+          var alert_at = row.alert_at;
+          if (!alert_at || row.alert_confirmed) return;
+
+          var alert_at = (new Date(alert_at)).getTime();
+          var now = (new Date()).getTime();
+
+          if (now >= alert_at) {
+            var confirmed = confirm(row.title);
+            Vue.set(me.list[i], 'alert-confirmed', confirmed);
+          }
+        })
+      },
       merge: function() {
         // 先判断当前输入内容(current)有没有id。如有，则说明该任务已存在,就更新它；如果没有就创建它。
         var is_update, id;
