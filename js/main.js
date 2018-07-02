@@ -23,6 +23,7 @@
     el:'#main',
     data: {
       list: [],
+      last_id: 0,
       current: {}
     },
 
@@ -30,6 +31,7 @@
     mounted: function () {
       var me = this;
       this.list = ms.get('list') || this.list;
+      this.last_id = ms.get('last_id') || this.last_id;
 
       // 每隔1秒执行一次 check_alerts
       setInterval(function () {
@@ -100,7 +102,9 @@
 
           // 把current对象拷贝赋值给todo，再push到list数组中
           var todo = copy(this.current);
-          todo.id = this.next_id()
+          this.last_id++;
+          ms.set('last_id', this.last_id);
+          todo.id = this.last_id;
           this.list.push(todo);
         }
         this.reset_current();

@@ -21,7 +21,7 @@
   <form @submit.prevent="merge" id="task-form">
     <div class="wrap">
       <input v-model="current.title" id="task-input" type="text" autocomplete="off"></input>
-      <div v-if="current.id" class="detail">
+      <div v-show="current.id" class="detail">
         <textarea v-model="current.desc"></textarea>
         <input v-model="current.alert_at" type="datetime-local">
         <button type="submit">submit</button>
@@ -32,7 +32,7 @@
     <div class="wrap">
       待办事项
       <task v-bind:todo="todo"
-            v-if="!todo.completed" 
+            v-show="!todo.completed" 
             v-for="(todo, index) in list">
       </task>
     </div>
@@ -40,7 +40,7 @@
   <div class="task-list">
     <div class="wrap">
       已完成事项
-      <div v-if="todo.completed" v-for="(todo, index) in list" class="item completed">
+      <div v-show="todo.completed" v-for="(todo, index) in list" class="item completed">
         <button @click="toggle_complete(todo.id)">未完成</button>
         {{ todo.title }}
         <button @click="set_current(todo)">修改</button>
@@ -62,7 +62,7 @@
     <button @click="action('toggle_detail', todo.id)">详情</button>
     <button @click="action('set_current', todo)">修改</button>
     <button @click="action('remove', todo.id)">删除</button>
-    <div v-if="todo.show_detail" class="detail">
+    <div v-show="todo.show_detail" class="detail">
       {{ todo.desc || '暂无详情' }}
     </div>
   </div>
