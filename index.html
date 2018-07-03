@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Vue.js清单列表</title>
   <link href="https://cdn.bootcss.com/normalize/8.0.0/normalize.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
   <link href="css/main.css" rel="stylesheet">
 </head>
 <body>
@@ -16,21 +17,27 @@
     <h1>Vue.js 清单列表</h1>
   </div>
   <div class="header">
-    <p>开黑了么就写作业？</p>
+    准时准点搞事情~
   </div>
   <form @submit.prevent="merge" id="task-form">
     <div class="wrap">
-      <input v-model="current.title" id="task-input" type="text" autocomplete="off"></input>
+      <input v-model="current.title" 
+             @dblclick="current.id = true" 
+             id="task-input" 
+             type="text" 
+             autocomplete="off" 
+             placeholder="添加新任务...">
+      </input>
       <div v-show="current.id" class="detail">
-        <textarea v-model="current.desc"></textarea>
+        <textarea v-model="current.desc" placeholder="详情描述"></textarea>
         <input v-model="current.alert_at" type="datetime-local">
-        <button type="submit">submit</button>
+        <button class="primary" type="submit">完 成</button>
       </div>
     </div>
   </form>
   <div class="task-list">
     <div class="wrap">
-      待办事项
+      <div class="segment-title">待办事项</div>
       <task v-bind:todo="todo"
             v-show="!todo.completed" 
             v-for="(todo, index) in list">
@@ -39,14 +46,12 @@
   </div>
   <div class="task-list">
     <div class="wrap">
-      已完成事项
-      <div v-show="todo.completed" v-for="(todo, index) in list" class="item completed">
-        <button @click="toggle_complete(todo.id)">未完成</button>
-        {{ todo.title }}
-        <button @click="set_current(todo)">修改</button>
-        <button @click="remove(todo.id)">删除</button>
-      </div>
-      </div>
+      <div class="segment-title">已完成</div>
+      <task v-bind:todo="todo"
+            v-show="todo.completed" 
+            v-for="(todo, index) in list" 
+            class="completed">
+      </task>
     </div>
   </div>
 
@@ -56,15 +61,27 @@
   <source src="./sound/alert.mp3">
 </audio>
 <template id="task-tpl">
-  <div class="item">
-    <button @click="action('toggle_complete', todo.id)">已完成</button>
-    {{ todo.title }}
-    <button @click="action('toggle_detail', todo.id)">详情</button>
-    <button @click="action('set_current', todo)">修改</button>
-    <button @click="action('remove', todo.id)">删除</button>
-    <div v-show="todo.show_detail" class="detail">
-      {{ todo.desc || '暂无详情' }}
+  <div class="item" @dblclick="action('set_current', todo)">
+    <span class="check">
+      <i  @click="action('toggle_complete', todo.id)" 
+          class="fas fa-check-circle"></i>
+    </span>
+    <span class="title">{{ todo.title }}</span>
+    <div class="btn-group">
+      <span>
+        <i @click="action('toggle_detail', todo.id)" class="fas fa-chevron-down desc"></i>
+      </span>
+      <span>
+        <i @click="action('set_current', todo)" class="far fa-edit edit"></i>
+      </span>
+      <span>
+        <i @click="action('remove', todo.id)" class="far fa-trash-alt remove"></i> 
+      </span> 
     </div>
+    <div v-show="todo.show_detail" class="detail">
+      {{ todo.desc || '暂无描述，双击可以编辑哦~' }}
+    </div>
+
   </div>
 </template>
 

@@ -39,24 +39,24 @@
         me.check_alerts();
       }, 1000);
 
-      Event.$on('toggle_detail', function (id) {
-        if (id) {
-          me.toggle_detail(id);
-        }
-      });
-      Event.$on('remove', function (id) {
-        if (id) {
-          me.remove(id);
-        }
-      });
       Event.$on('toggle_complete', function (id) {
         if (id) {
           me.toggle_complete(id);
         }
       });
+      Event.$on('toggle_detail', function (id) {
+        if (id) {
+          me.toggle_detail(id);
+        }
+      });
       Event.$on('set_current', function (id) {
         if (id) {
           me.set_current(id);
+        }
+      });
+      Event.$on('remove', function (id) {
+        if (id) {
+          me.remove(id);
         }
       });
 
@@ -76,8 +76,14 @@
 
           if (now >= alert_at) {
             alert_sound.play();
-            var confirmed = confirm(row.title);
-            Vue.set(me.list[i], 'alert_confirmed', confirmed);
+            // 0.01秒之后再执行弹出提醒
+            setTimeout(function() {
+              var confirmed = confirm(row.title);
+              Vue.set(me.list[i], 'alert_confirmed', confirmed);
+            },10);
+
+            // var confirmed = confirm(row.title);
+            // Vue.set(me.list[i], 'alert_confirmed', confirmed);
           }
         })
       },
@@ -142,6 +148,11 @@
         var i = this.find_index(id);
         Vue.set(this.list[i], 'completed', !this.list[i].completed);
         // this.list[i].completed = !this.list[i].completed;
+
+        // 如果任务已完成，则不显示任务描述
+        if (this.list[i].completed && this.list[i].show_detail) {
+          this.toggle_detail(id);
+        }
       }
     },
 
