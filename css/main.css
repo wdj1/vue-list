@@ -118,9 +118,9 @@ button.primary {
 
 .task-list .item {
   padding: 5px;
-  -webkit-border-radius: 15px;
-     -moz-border-radius: 15px;
-          border-radius: 15px;
+  -webkit-border-radius: 12px;
+     -moz-border-radius: 12px;
+          border-radius: 12px;
 }
 
 .task-list .item .item-icon {
