@@ -24,6 +24,7 @@
     data: {
       list: [],
       last_id: 0,
+      showDetail: false,
       current: {}
     },
 
@@ -86,6 +87,9 @@
             // Vue.set(me.list[i], 'alert_confirmed', confirmed);
           }
         })
+      },
+      toggleDetail: function () {
+        this.showDetail = ! this.showDetail;
       },
       merge: function() {
         // 先判断当前输入内容(current)有没有id。如有，则说明该任务已存在,就更新它；如果没有就创建它。

@@ -20,16 +20,19 @@
     准时准点搞事情~
   </div>
   <form @submit.prevent="merge" id="task-form">
-    <div class="wrap">
+    <div class="form-wrap">
       <input v-model="current.title" 
-             @dblclick="current.id = true" 
              id="task-input" 
              type="text" 
              autocomplete="off" 
              placeholder="添加新任务...">
       </input>
-      <div v-show="current.id" class="detail">
-        <textarea v-model="current.desc" placeholder="详情描述"></textarea>
+      <div class="input-icon">
+        <button><span><i @click="merge" class="fas fa-plus add"></i></span></button><button><span><i @click="toggleDetail" class="fas fa-ellipsis-h"></i></span></button>
+      </div>
+      <div v-show="showDetail || current.id" class="detail">
+        <textarea v-model="current.desc" placeholder="详情描述..."></textarea>
+        <p>定时提醒</p>
         <input v-model="current.alert_at" type="datetime-local">
         <button class="primary" type="submit">完 成</button>
       </div>
@@ -61,25 +64,19 @@
   <source src="./sound/alert.mp3">
 </audio>
 <template id="task-tpl">
-  <div class="item" @dblclick="action('set_current', todo)">
+  <div class="item">
     <span class="check">
       <i  @click="action('toggle_complete', todo.id)" 
           class="fas fa-check-circle"></i>
     </span>
     <span class="title">{{ todo.title }}</span>
-    <div class="btn-group">
+    <div class="item-icon">
       <span>
-        <i @click="action('toggle_detail', todo.id)" class="fas fa-chevron-down desc"></i>
-      </span>
-      <span>
-        <i @click="action('set_current', todo)" class="far fa-edit edit"></i>
-      </span>
-      <span>
-        <i @click="action('remove', todo.id)" class="far fa-trash-alt remove"></i> 
+        <i @click="action('toggle_detail', todo.id)" class="fas fa-chevron-down desc"></i><i @click="action('set_current', todo)" class="far fa-edit edit"></i><i @click="action('remove', todo.id)" class="far fa-trash-alt remove"></i> 
       </span> 
     </div>
     <div v-show="todo.show_detail" class="detail">
-      {{ todo.desc || '暂无描述，双击可以编辑哦~' }}
+      {{ todo.desc || '暂无详情描述' }}
     </div>
 
   </div>

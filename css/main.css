@@ -5,33 +5,83 @@
           box-sizing: border-box;
 }
 
+
+html {
+  background-color: ghostwhite;
+}
 body {
   color: #444;
 }
 
-input, button, textarea {
-  border: 1px solid rgba(0, 0, 0, .1);
-  border-radius: 4px;
-  padding: 5px 10px;
-}
-
 input, textarea {
+  border: 1px solid transparent;
+  padding: 5px 10px;
   outline: none;
   display: block;
   width: 100%;
-  margin-bottom: 10px;
+  background-color: papayawhip;
+/*  margin-bottom: 10px;
   -webkit-box-shadow: 0 2px 3px rgba(0, 0, 0, .1);
      -moz-box-shadow: 0 2px 3px rgba(0, 0, 0, .1);
-          box-shadow: 0 2px 3px rgba(0, 0, 0, .1);
+          box-shadow: 0 2px 3px rgba(0, 0, 0, .1);*/
 }
 
+
 input:focus, textarea:focus {
-  border: 1px solid #db4c3f;
+  /*border: 1px solid #db4c3f;*/
+  background-color: #fbebd0;
+}
+
+.input-icon{
+  position: absolute;
+  top: 0;
+  right: 12px;
+  line-height: 30px;
+  
+}
+
+.input-icon span {
+  font-size: 14px;
+  color: #aaa;
+  cursor: pointer;
+}
+
+.input-icon span:hover {
+  color: DarkSeaGreen;
+}
+
+.input-icon button {
+  padding: 0 2px;
+  border: none;
+  outline: none;
+  background-color: transparent;
+}
+
+.input-icon .add {
+  margin-right: 5px;
 }
 
 button.primary {
-  background: #db4c3f;
+  display: block;
+  width: 96%;
+  margin: 8px auto;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  outline: none;
+  font-size: 16px;
   color: #f7f3ea;
+  background-color: #eb6159;
+}
+
+.form-wrap {
+  max-width: 500px;
+  margin: 0 auto;
+  overflow: hidden;
+  border-radius: 8px;
+  -webkit-box-shadow: 0 3px 10px rgba(0, 0, 0, .2);
+     -moz-box-shadow: 0 3px 10px rgba(0, 0, 0, .2);
+          box-shadow: 0 3px 10px rgba(0, 0, 0, .2);
 }
 
 .wrap {
@@ -46,7 +96,7 @@ button.primary {
 }
 
 .navbar {
-  background: #db4c3f;
+  background: #5AB5B2;
   color: #f7f3ea;
   padding: 10px 0;
 }
@@ -68,23 +118,23 @@ button.primary {
 
 .task-list .item {
   padding: 5px;
-  -webkit-border-radius: 4px;
-     -moz-border-radius: 4px;
-          border-radius: 4px;
+  -webkit-border-radius: 15px;
+     -moz-border-radius: 15px;
+          border-radius: 15px;
 }
 
-.task-list .item .btn-group {
+.task-list .item .item-icon {
   display: none;
- /* font-size: 80%;
-  background: #fff;*/
+  cursor: pointer;
 }
 
-.btn-group i {
+.item-icon i {
   color: #aaa;
-  padding: 3px;
+  padding: 5px;
 }
 
 .check, .completed .check:hover{
+  cursor: pointer;
   font-size: 22px;
   color: #cacaca; 
 }
@@ -98,19 +148,19 @@ button.primary {
 }
 
 
-.btn-group {
+.item-icon {
   float: right;
 }
 
-.btn-group .desc:hover {
+.item-icon .desc:hover {
   color: #f9cf2e/*DarkSeaGreen*/;
 }
 
-.btn-group .edit:hover {
+.item-icon .edit:hover {
   color: Dodgerblue;
 }
 
-.btn-group .remove:hover {
+.item-icon .remove:hover {
   color: Tomato;
 }
 
@@ -119,7 +169,7 @@ button.primary {
   background: rgba(0, 0, 0, .04);
 }
 
-.task-list .item:hover .btn-group {
+.task-list .item:hover .item-icon {
   display: inline-block;
 }
 
@@ -133,6 +183,13 @@ button.primary {
   padding-left: 45px;
   font-size: 80%;
   color: #666;
+}
+
+.detail p {
+  margin: 0;
+  padding: 10px 0 10px 10px;
+  /*padding-left: 10px;*/
+  font-size: 16px;
 }
 
 .task-list .item > * {
@@ -152,4 +209,8 @@ button.primary {
 
 .completed .title {
   text-decoration:line-through;
+}
+
+::-webkit-scrollbar {/*隐藏滚动条*/
+display: none;
 }
